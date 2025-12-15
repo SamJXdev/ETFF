@@ -42,9 +42,9 @@ export const Login = () => {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center mx-auto mb-4 shadow-lg shadow-neon-purple/40">
             <PieChart className="text-white w-8 h-8" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
+          <h2 className="text-3xl font-bold text-white mb-2">Budget OS</h2>
           <p className="text-gray-400">
-            Enter your credentials to access your finance dashboard
+            Enter your credentials to access your account
           </p>
         </div>
 
@@ -139,7 +139,7 @@ export const Register = () => {
           </div>
           <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
           <p className="text-gray-400">
-            Start managing your expenses intelligently
+            Enter your details and start tracking you expenses
           </p>
         </div>
 
