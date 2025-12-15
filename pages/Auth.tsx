@@ -153,7 +153,7 @@ export const Register = () => {
           <GlassInput
             label="Full Name"
             type="text"
-            placeholder="John Doe"
+            placeholder=""
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -161,7 +161,7 @@ export const Register = () => {
           <GlassInput
             label="Email Address"
             type="email"
-            placeholder="john@example.com"
+            placeholder=""
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -169,7 +169,7 @@ export const Register = () => {
           <GlassInput
             label="Password"
             type="password"
-            placeholder="••••••••"
+            placeholder=""
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
