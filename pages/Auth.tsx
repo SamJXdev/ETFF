@@ -58,7 +58,7 @@ export const Login = () => {
           <GlassInput
             label="Email Address"
             type="email"
-            placeholder="john@example.com"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
