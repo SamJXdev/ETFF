@@ -1,0 +1,5 @@
+{
+  "name": "ExpenseTracker_FT",
+  "description": "A futuristic, glassmorphism-styled expense tracker dashboard interacting with a .NET backend.",
+  "requestFramePermissions": []
+}
