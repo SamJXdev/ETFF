@@ -58,7 +58,7 @@ export const Login = () => {
           <GlassInput
             label="Email Address"
             type="email"
-            placeholder="Enter your email"
+            placeholder=""
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -66,7 +66,7 @@ export const Login = () => {
           <GlassInput
             label="Password"
             type="password"
-            placeholder="••••••••"
+            placeholder=""
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
