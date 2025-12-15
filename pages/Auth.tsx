@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { GlassCard, GlassButton, GlassInput } from "../components/GlassUI";
-import { PieChart, ArrowRight } from "lucide-react";
+import { PieChart, ArrowRight, CrownIcon } from "lucide-react";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ export const Login = () => {
       <GlassCard className="w-full max-w-md relative z-10 backdrop-blur-2xl border-white/10">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center mx-auto mb-4 shadow-lg shadow-neon-purple/40">
-            <PieChart className="text-white w-8 h-8" />
+            <CrownIcon className="text-white w-8 h-8" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-2">Budget OS</h2>
           <p className="text-gray-400">
@@ -135,7 +135,7 @@ export const Register = () => {
       <GlassCard className="w-full max-w-md relative z-10 backdrop-blur-2xl border-white/10">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-pink to-neon-purple flex items-center justify-center mx-auto mb-4 shadow-lg shadow-neon-pink/40">
-            <PieChart className="text-white w-8 h-8" />
+            <CrownIcon className="text-white w-8 h-8" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-2">Create Account</h2>
           <p className="text-gray-400">
