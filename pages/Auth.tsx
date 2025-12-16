@@ -19,6 +19,13 @@ export const Login = () => {
       const res = await api.auth.login(email, password);
       if (res && res.token) {
         localStorage.setItem("token", res.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email:email,
+          })
+        );
+
         navigate("/");
       } else {
         setError("Invalid credentials");
@@ -120,6 +127,13 @@ export const Register = () => {
       const res = await api.auth.register(name, email, password);
       if (res && res.message) {
         // Auto login or redirect to login
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            name, email,
+          })
+        );
+
         navigate("/login");
       } else {
         setError("Registration failed");

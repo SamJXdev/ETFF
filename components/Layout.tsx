@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   LogOut,
   Menu,
-  PieChart,
-  CalendarSearch,
-  LucideMenu,
-  Crown,
   Wallet,
   Settings,
 } from "lucide-react";
@@ -40,12 +36,41 @@ export interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Load user data from localStorage safely
+  useEffect(() => {
+    try {
+      const userStr = localStorage.getItem("user");
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        setUserData({
+          name: user.name || "User",
+          email: user.email || "",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to load user data", error);
+      setUserData({ name: "User", email: "" });
+    }
+  }, []);
 
   const handleLogout = () => {
     api.auth.logout();
     navigate("/login");
+  };
+
+  // Get user initials safely
+  const getUserInitials = () => {
+    if (!userData?.name) return "U";
+    return userData.name
+      .split(" ")
+      .map(word => word[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   const navItems = [
@@ -107,28 +132,62 @@ export const Layout = ({ children }: LayoutProps) => {
             ))}
           </nav>
 
+          {/* Enhanced User Profile Section with Initials */}
+          <div className="mt-auto mb-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-3">
+              {/* User Initials Circle */}
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-white/20 flex items-center justify-center shrink-0">
+                <span className="text-white font-medium text-lg">
+                  {getUserInitials()}
+                </span>
+              </div>
+              
+              <div className="min-w-0">
+                <p className="text-white font-semibold truncate">
+                  {userData?.name || "User"}
+                </p>
+                <p className="text-gray-400 text-sm truncate">
+                  {userData?.email || ""}
+                </p>
+              </div>
+            </div>
+          </div>
+
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-red-200 hover:bg-red-500/10 transition-all duration-300 mt-auto group"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-red-200 hover:bg-red-500/10 transition-all duration-300 group"
           >
             <LogOut size={20} className="group-hover:text-red-400" />
-            <span className="font-medium" variant="danger">
-              Sign Out
-            </span>
+            <span className="font-medium">Sign Out</span>
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 w-full min-w-0 flex flex-col h-screen overflow-hidden">
-        {/* Mobile Header */}
+        {/* Mobile Header with User Info */}
         <header className="lg:hidden h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6 z-30 shrink-0">
-          <div className="font-bold text-2xl">
-            Budget<span className="text-neon-blue text-3xl ">OS</span>
+          <div className="flex items-center gap-3">
+            {/* User Initials Circle in Mobile Header */}
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-white/20 flex items-center justify-center shrink-0">
+              <span className="text-white font-medium text-sm">
+                {getUserInitials()}
+              </span>
+            </div>
+            <div className="min-w-0">
+              <div className="font-bold text-lg text-white truncate">
+                {userData?.name?.split(" ")[0] || "BudgetOS"}
+              </div>
+              {userData?.email && (
+                <div className="text-xs text-gray-400 truncate max-w-[150px]">
+                  {userData.email}
+                </div>
+              )}
+            </div>
           </div>
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-lg bg-white/5 text-white"
+            className="p-2 rounded-lg bg-white/5 text-white shrink-0"
           >
             <Menu size={24} />
           </button>
