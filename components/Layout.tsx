@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
-  Wallet,
   LogOut,
   Menu,
   PieChart,
   CalendarSearch,
   LucideMenu,
   Crown,
+  Wallet,
+  Settings,
 } from "lucide-react";
 import { api } from "../services/api";
 
@@ -78,11 +79,18 @@ export const Layout = ({ children }: LayoutProps) => {
       >
         <div className="p-8 flex flex-col h-full">
           <div className="flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center shadow-lg shadow-neon-purple/30">
-              <Crown className="text-white" size={24} />
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-neon-pink to-neon-blue flex items-center justify-center shadow-lg shadow-neon-purple/30">
+              {/* Main Icon */}
+              <Wallet className="text-white" size={22} />
+
+              {/* Settings Badge */}
+              <div className="absolute -bottom-1 -right-1 bg-black/70 backdrop-blur-md rounded-full p-[2px]">
+                <Settings className="text-white opacity-90" size={14} />
+              </div>
             </div>
+
             <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-              Budget<span className="text-neon-blue text-3xl ">OS</span>
+              Budget<span className="text-neon-blue text-3xl">OS</span>
             </h1>
           </div>
 
@@ -115,7 +123,9 @@ export const Layout = ({ children }: LayoutProps) => {
       <main className="flex-1 w-full min-w-0 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
         <header className="lg:hidden h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6 z-30 shrink-0">
-          <div className="font-bold text-lg">Expense Tracker</div>
+          <div className="font-bold text-2xl">
+            Budget<span className="text-neon-blue text-3xl ">OS</span>
+          </div>
           <button
             onClick={() => setSidebarOpen(true)}
             className="p-2 rounded-lg bg-white/5 text-white"
