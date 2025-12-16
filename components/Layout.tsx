@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import {
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Wallet,
-  Settings,
-} from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, Wallet, Settings } from "lucide-react";
 import { api } from "../services/api";
 
 const NavItem = ({ to, icon: Icon, label, active, onClick }: any) => (
@@ -36,13 +30,16 @@ export interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
+  const [userData, setUserData] = useState<{
+    name: string;
+    email: string;
+  } | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
   // Load user data from localStorage safely
   useEffect(() => {
-    try {
+    const syncUser = () => {
       const userStr = localStorage.getItem("user");
       if (userStr) {
         const user = JSON.parse(userStr);
@@ -51,10 +48,12 @@ export const Layout = ({ children }: LayoutProps) => {
           email: user.email || "",
         });
       }
-    } catch (error) {
-      console.error("Failed to load user data", error);
-      setUserData({ name: "User", email: "" });
-    }
+    };
+
+    syncUser(); // initial
+    window.addEventListener("storage", syncUser);
+
+    return () => window.removeEventListener("storage", syncUser);
   }, []);
 
   const handleLogout = () => {
@@ -67,7 +66,7 @@ export const Layout = ({ children }: LayoutProps) => {
     if (!userData?.name) return "U";
     return userData.name
       .split(" ")
-      .map(word => word[0])
+      .map((word) => word[0])
       .join("")
       .toUpperCase()
       .slice(0, 2);
@@ -141,7 +140,7 @@ export const Layout = ({ children }: LayoutProps) => {
                   {getUserInitials()}
                 </span>
               </div>
-              
+
               <div className="min-w-0">
                 <p className="text-white font-semibold truncate">
                   {userData?.name || "User"}
