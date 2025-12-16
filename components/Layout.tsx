@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { LayoutDashboard, LogOut, Menu, Wallet, Settings } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, Wallet, Settings, Mail } from "lucide-react"; // Added Mail icon
 import { api } from "../services/api";
 
 const NavItem = ({ to, icon: Icon, label, active, onClick }: any) => (
@@ -30,23 +30,17 @@ export interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [userData, setUserData] = useState<{
-    name: string;
-    email: string;
-  } | null>(null);
+  const [userEmail, setUserEmail] = useState<string>("");
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Load user data from localStorage safely
+  // Load user email from localStorage safely
   useEffect(() => {
     const syncUser = () => {
       const userStr = localStorage.getItem("user");
       if (userStr) {
         const user = JSON.parse(userStr);
-        setUserData({
-          name: user.name || "User",
-          email: user.email || "",
-        });
+        setUserEmail(user.email || "");
       }
     };
 
@@ -61,15 +55,16 @@ export const Layout = ({ children }: LayoutProps) => {
     navigate("/login");
   };
 
-  // Get user initials safely
+  // Get initials from email (first letter of email)
   const getUserInitials = () => {
-    if (!userData?.name) return "U";
-    return userData.name
-      .split(" ")
-      .map((word) => word[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
+    if (!userEmail) return "U";
+    return userEmail.charAt(0).toUpperCase();
+  };
+
+  // Get username from email (part before @)
+  const getUsernameFromEmail = () => {
+    if (!userEmail) return "User";
+    return userEmail.split("@")[0];
   };
 
   const navItems = [
@@ -131,23 +126,29 @@ export const Layout = ({ children }: LayoutProps) => {
             ))}
           </nav>
 
-          {/* Enhanced User Profile Section with Initials */}
+          {/* Enhanced User Profile Section */}
           <div className="mt-auto mb-4 p-4 rounded-xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-3">
               {/* User Initials Circle */}
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-white/20 flex items-center justify-center shrink-0">
-                <span className="text-white font-medium text-lg">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-neon-purple/30 to-neon-blue/30 border border-white/20 flex items-center justify-center shrink-0">
+                <span className="text-white font-bold text-xl">
                   {getUserInitials()}
                 </span>
               </div>
 
-              <div className="min-w-0">
-                <p className="text-white font-semibold truncate">
-                  {userData?.name || "User"}
+              <div className="min-w-0 flex-1">
+                {/* Username from email */}
+                <p className="text-white font-semibold text-sm truncate">
+                  {getUsernameFromEmail()}
                 </p>
-                <p className="text-gray-400 text-sm truncate">
-                  {userData?.email || ""}
-                </p>
+                
+                {/* Full email with Mail icon */}
+                <div className="flex items-center gap-2 mt-1">
+                  <Mail size={12} className="text-gray-400" />
+                  <p className="text-gray-400 text-xs truncate">
+                    {userEmail}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -168,20 +169,21 @@ export const Layout = ({ children }: LayoutProps) => {
         <header className="lg:hidden h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6 z-30 shrink-0">
           <div className="flex items-center gap-3">
             {/* User Initials Circle in Mobile Header */}
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-white/20 flex items-center justify-center shrink-0">
-              <span className="text-white font-medium text-sm">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-white/20 flex items-center justify-center shrink-0">
+              <span className="text-white font-medium text-base">
                 {getUserInitials()}
               </span>
             </div>
             <div className="min-w-0">
-              <div className="font-bold text-lg text-white truncate">
-                {userData?.name?.split(" ")[0] || "BudgetOS"}
+              <div className="font-bold text-lg text-white truncate max-w-[180px]">
+                {getUsernameFromEmail() || "BudgetOS"}
               </div>
-              {userData?.email && (
-                <div className="text-xs text-gray-400 truncate max-w-[150px]">
-                  {userData.email}
+              <div className="flex items-center gap-1">
+                <Mail size={10} className="text-gray-400" />
+                <div className="text-xs text-gray-400 truncate max-w-[180px]">
+                  {userEmail}
                 </div>
-              )}
+              </div>
             </div>
           </div>
           <button
