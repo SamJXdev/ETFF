@@ -187,7 +187,7 @@ export const Expenses = () => {
               <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto">
                 <div className="text-right">
                   <div className="text-xl font-bold text-white">
-                    -${expense.amount.toFixed(2)}
+                    -₹{expense.amount.toFixed(2)}
                   </div>
                   {expense.notes && (
                     <div className="text-xs text-gray-500 max-w-[150px] truncate">

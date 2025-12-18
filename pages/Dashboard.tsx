@@ -97,7 +97,7 @@ export const Dashboard = () => {
         <div className="bg-slate-900/90 border border-white/20 p-3 rounded-lg shadow-xl backdrop-blur-md">
           <p className="text-gray-300 text-sm mb-1">{label}</p>
           <p className="text-white font-bold text-lg">
-            ${payload[0].value.toFixed(2)}
+            ₹{payload[0].value.toFixed(2)}
           </p>
         </div>
       );
@@ -116,9 +116,7 @@ export const Dashboard = () => {
     <div className="space-y-8 pb-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-1">
-            Overview
-          </h1>
+          <h1 className="text-3xl font-bold text-white mb-1">Overview</h1>
           <p className="text-gray-400">
             Here's what's happening with your money this month.
           </p>
@@ -144,7 +142,7 @@ export const Dashboard = () => {
             <span className="text-gray-400 font-medium">Total Spent</span>
           </div>
           <div className="text-4xl font-bold text-white mb-1">
-            ${totalSpent.toFixed(2)}
+            ₹{totalSpent.toFixed(2)}
           </div>
           <div className="text-sm text-gray-400">
             in {format(currentDate, "MMMM yyyy")}
@@ -162,7 +160,7 @@ export const Dashboard = () => {
             <span className="text-gray-400 font-medium">Monthly Budget</span>
           </div>
           <div className="text-4xl font-bold text-white mb-1">
-            {budgetLimit > 0 ? `$${budgetLimit.toFixed(2)}` : "Not Set"}
+            ₹{budgetLimit > 0 ? `${budgetLimit.toFixed(2)}` : "Not Set"}
           </div>
           <div className="w-full bg-gray-700/50 rounded-full h-2 mt-3 overflow-hidden">
             <div
@@ -191,7 +189,7 @@ export const Dashboard = () => {
               remaining < 0 ? "text-red-400" : "text-white"
             }`}
           >
-            ${remaining.toFixed(2)}
+            ₹{remaining.toFixed(2)}
           </div>
           <div className="text-sm text-gray-400">Available to spend</div>
         </GlassCard>
@@ -222,7 +220,13 @@ export const Dashboard = () => {
                   tick={{ fill: "#9CA3AF", fontSize: 12 }}
                   tickLine={false}
                   axisLine={false}
-                  tickFormatter={(value) => `$${value}`}
+                  tickFormatter={(value) =>
+                    new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "INR",
+                      maximumFractionDigits: 0,
+                    }).format(value)
+                  }
                 />
                 <Tooltip
                   content={<CustomTooltip />}
@@ -335,7 +339,7 @@ export const Dashboard = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-white">
-                    -${expense.amount.toFixed(2)}
+                    -₹{expense.amount.toFixed(2)}
                   </p>
                   <p className="text-xs text-neon-blue">{expense.category}</p>
                 </div>
