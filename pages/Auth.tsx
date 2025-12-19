@@ -115,14 +115,39 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const validatePassword = (pwd: string, repwd:string) => {
+    if(!repwd){
+      setPasswordError("");
+      return false;
+    }
+    if(repwd!=pwd){
+      setPasswordError("Passwords do not match");
+      return false;
+    }
+    setPasswordError("");
+    return true;
+  }
+
+  const isFormValid = 
+  name.trim() !== "" &&
+  email.trim() !== "" && 
+  password.trim() !== "" &&
+  retypePassword.trim() !== "" &&
+  !passwordError;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    if(!validatePassword(password, retypePassword)){
+      return;
+    }
+    setLoading(true);
     try {
       const res = await api.auth.register(name, email, password);
       if (res && res.message) {
@@ -191,11 +216,32 @@ export const Register = () => {
             type="password"
             placeholder=""
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword(value);
+              validatePassword(value,retypePassword);
+            }}
             required
           />
 
-          <GlassButton type="submit" className="w-full" disabled={loading}>
+          <GlassInput
+            label="Retype Password"
+            type="Password"
+            placeholder=""
+            value={retypePassword}
+            onChange={(e) => {
+              const value = e.target.value;
+              setRetypePassword(value);
+              validatePassword(password, value);
+            }}
+            required
+          />
+
+          {passwordError && (
+            <p className="text-red-400 text-sm mt-1">{passwordError}</p>
+          )}
+
+          <GlassButton type="submit" className="w-full" disabled={!isFormValid || loading}>
             {loading ? "Creating..." : "Sign Up"}
           </GlassButton>
         </form>
