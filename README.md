@@ -7,6 +7,7 @@ GitHub: https://github.com/SamJXdev
 
 ## 🎨 Frontend Repository – `BudgetOS_Frontend_Repo`
 ### 🔗 **Live**: https://budgetos.vercel.app/
+### 🔗 **Backend Repository**: https://github.com/SamJXdev/BudgetOS_backend_Repo
 
 
 BudgetOS – Frontend 🎨💸
