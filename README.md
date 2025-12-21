@@ -1,19 +1,19 @@
 # 👨‍💻 Author
 
-### Samuvel G
-Final Year Engineering Student | Full Stack Developer
+**Samuvel G**  
+Final Year Engineering Student | Full Stack Developer  
 GitHub: https://github.com/SamJXdev
 
 ---
 
-## 🎨 Frontend Repository – `BudgetOS_Frontend_Repo`
-### 🔗 **Live**: https://budgetos.vercel.app/
-### 🔗 **Backend Repository**: https://github.com/SamJXdev/BudgetOS_backend_Repo
+# 🎨 Frontend Repository – `BudgetOS_Frontend_Repo`
+
+🔗 **Live Application**: https://budgetos.vercel.app/  
+🔗 **Backend Repository**: https://github.com/SamJXdev/BudgetOS_backend_Repo
 
 ---
 
 BudgetOS Frontend is a modern, responsive web application that allows users to track expenses, manage budgets, and visualize spending patterns.
-
 It consumes APIs from the BudgetOS backend and provides a clean, intuitive user experience.
 
 ---
