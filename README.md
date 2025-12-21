@@ -1,20 +1,55 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+### 👨‍💻 Author
 
-# Run and deploy your AI Studio app
+# Samuvel G
+Final Year Engineering Student | Full Stack Developer
+GitHub: https://github.com/SamJXdev
+---
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/drive/1ib6I9njcmM4mlDwBWT5S2ueHrXpOFsDP
-
-## Run Locally
-
-**Prerequisites:**  Node.js
+## 🎨 Frontend Repository – `BudgetOS_Frontend_Repo`
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+BudgetOS – Frontend 🎨💸
+
+BudgetOS Frontend is a modern, responsive web application that allows users to track expenses, manage budgets, and visualize spending patterns.
+
+It consumes APIs from the BudgetOS backend and provides a clean, intuitive user experience.
+
+---
+
+## ✨ Features
+
+- User authentication (Login & Register)
+- Expense tracking with categories
+- Budget limit monitoring
+- Interactive charts & insights
+- Responsive UI
+- Secure API integration
+- Dashboard-based navigation
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** React (Vite)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide Icons
+- **Charts:** Recharts
+- **Deployment:** Vercel
+
+---
+
+## 🔗 Backend Integration
+
+- Communicates with a separate backend service
+- Uses JWT tokens for authenticated requests
+- Axios-based API service layer
+
+---
+
+## ▶️ Running Locally
+
+```bash
+npm install
+npm run dev
+
