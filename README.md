@@ -2,6 +2,7 @@
 
 ### Samuvel G
 Final Year Engineering Student | Full Stack Developer
+GitHub: https://github.com/SamJXdev
 
 ---
 
